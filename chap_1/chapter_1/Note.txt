@@ -1,0 +1,64 @@
+difference between values, variables, and pointers.
+A value in Rust is the combination of a type and an element of that type’s domain of values
+
+
+/////////////////let string = "Hello world";
+The variable string is NOT storing the actual characters "H", "e", "l", "l", "o", etc.
+Instead, it stores:
+A pointer (memory address) to where 'H' is stored
+The length of the string (11 characters)
+
+The three most important regions for the purposes of writ-
+ing Rust code are the stack, the heap, and static memory.
+
+........stack - segment of memory for functions calls
+.each time a funcdtion is called, a chunk of memory is allocated the top of the stack
+.Near the bottom of the stack is the frame for the main function, and as functions call other functions
+
+........heap
+.Values in heap memory live until they are explicitly deallocated.(freeing,)
+.The heap allows you to explicitly allocate contiguous segments of ­memory. When you do so, you get a pointer to the start of that segment of memory
+.The primary mechanism for interacting with the heap in Rust is the Box type. 
+.When you write Box::new(value), the value is placed on the heap, and what you are given back (the Box<T>) is a pointer to that value on the heap.
+.If you forget to deallocate heap memory, it will stick around forever, and your application will eventually eat up all the memory on your machine. This is called leaking memory
+.there are some cases where you explicitly want to leak memory. For example,
+    say you have a read-only configuration that the entire program should be able to access.
+    You can allocate that on the heap and explicitly leak it with Box::leak to get a 'static reference to it
+
+........Static memory
+.Values in static memory live for the entire execution of your program.
+. program’s static memory contains the program’s binary code, which is usually mapped as read-only.
+.Static memory also holds the memory for variables you declare with the static keyword, as well as certain constant values in your code, like strings.
+.it is not deallocated until the program shuts down.
+.there can be 'static references
+that do not point to static memory—but the name is still appropriate: once
+you create a reference with a static lifetime, whatever it points to might as
+well be in static memory as far as the rest of the program is concerned, as it
+can be used for however long your program wishes.
+.You will encounter the 'static lifetime much more often than you will
+encounter truly static memory (through the static keyword, for example)
+when working with Rust. This is because 'static often shows up in trait
+bounds on type parameters
+
+.........................OWNERSHIP
+.If a value’s type implements the special Copy trait, the value is not considered to have moved even
+    if it is reassigned to a new memory location. Instead, the value is copied,
+    and both the old and new locations remain accessible.
+.Most primitive types in Rust, such as the integer and floating-point types, are Copy.
+.variables (including function arguments) are dropped in reverse order, and nested values are dropped in source-code order
+.The Rust compiler is allowed to assume that the value a shared refer-
+    ence points to will not change while that reference lives. For example, if the
+    Rust compiler sees that the value behind a shared reference is read multiple
+    times in a function, it is within its rights to read it only once and reuse that
+    value.
+.A mutable reference lets you mutate only the memory location that the reference points to
+.The primary difference between owning a value and having a mutable
+    reference to it is that the owner is responsible for dropping the value when
+    it is no longer necessary. Apart from that, you can do anything through a
+    mutable reference that you can if you own the value
+.one caveat: if you
+    move the value behind the mutable reference, then you must leave another
+    value in its place. If you did not, the owner would still think it needed to
+    drop the value, but there would be no value for it to drop!
+
+
