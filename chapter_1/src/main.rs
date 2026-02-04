@@ -355,7 +355,7 @@ if need_to_mutate {
     use(r);
 }
 
-//...........................GENERIC LIFETIME
+//........................GENERIC LIFETIME
 //ometimes you want a struct that holds references instead of owning data:
 // Instead of owning strings:
 struct OwnedSplitter {
