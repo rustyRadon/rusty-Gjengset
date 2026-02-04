@@ -52,7 +52,7 @@ replace_with_84(&mut s);
 // 3. Return: was = Box(42)
 
 // After: s → Box(0)  // STILL A VALID BOX!
-//........................... Direct Assignment - Replace with Another Value
+//......................... Direct Assignment - Replace with Another Value
 
 // s has Box(0)
 // was has Box(42)
