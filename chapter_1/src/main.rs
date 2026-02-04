@@ -2,7 +2,7 @@ fn main() {
     println!("Hello, world!");
 }
 
-//rules around ownership, move and copy semantics, and dropping.
+//rules around ownership, move and copy semantics, and dropping
 let x1 = 42;
 let y1 = Box::new(84);
 { // starts a new scope
