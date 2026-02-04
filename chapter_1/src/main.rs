@@ -144,7 +144,7 @@ let shared_ref = &cell;
 // borrow() → RefCell { value: 42, borrow_count: SHARED(1) }
 //     Can borrow() again, but not borrow_mut()
  
-////////////Category 2: Types that let you replace values (no &mut given)
+///////////Category 2: Types that let you replace values (no &mut given)
 //Get a copy of the value and Replace the entire value
 
 //Cell<T> (single-threaded)
